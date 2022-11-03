@@ -1,6 +1,7 @@
 package cn.itcast.user.web;
 
 import cn.itcast.user.config.PatternProperties;
+import cn.itcast.user.pojo.BaseResponse;
 import cn.itcast.user.pojo.User;
 import cn.itcast.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,14 @@ public class UserController {
                           @RequestHeader(value = "Truth", required = false) String truth) {
         System.out.println("truth: " + truth);
         return userService.queryById(id);
+    }
+
+    @PostMapping("/create")
+    public BaseResponse createUser(@RequestBody User user) {
+         if(userService.createUser(user)){
+             return new BaseResponse();
+         }else{
+             return new BaseResponse("100000","新增失败");
+         }
     }
 }

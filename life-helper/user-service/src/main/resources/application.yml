@@ -2,16 +2,20 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/cloud_user?useSSL=false
+    url: jdbc:mysql://localhost:3306/life-helper?useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
 #      discovery:
 #        cluster-name: HZ
 mybatis:
+  #标注实体类位置
   type-aliases-package: cn.itcast.user.pojo
   configuration:
     map-underscore-to-camel-case: true
+  #标注待解析的mapper的xml文件位置
+  mapper-locations: classpath:mapper/*.xml
+  #标注实体类位置
 logging:
   level:
     cn.itcast: debug

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.user.mapper.UserMapper">
+
+    <select id="findById" resultType="cn.itcast.user.pojo.User">
+        select *
+        from t_user
+        where user_id = #{userId}
+    </select>
+
+    <insert id="createUser" >
+        insert into
+            t_user (`user_id`, `nick_name`, `user_name`, `password`,`create_time`,`update_time`, `age`, `gender`)
+        value (#{userId}, #{nickName}, #{userName}, #{password}, current_timestamp (),current_timestamp (), #{age}, #{gender})
+    </insert>
+</mapper>

@@ -14,4 +14,13 @@ public class UserService {
     public User queryById(Long id) {
         return userMapper.findById(id);
     }
+
+    public boolean createUser(User user) {
+        try {
+            userMapper.createUser(user);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
 }
