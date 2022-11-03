@@ -15,4 +15,5 @@ public class User {
     private String updateTime;
     private String gender;
     private int age;
+    private int status;
 }

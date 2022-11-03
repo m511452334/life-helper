@@ -1,26 +1,38 @@
 package cn.itcast.user.service;
 
-import cn.itcast.user.mapper.UserMapper;
+import cn.itcast.user.pojo.BaseResponse;
 import cn.itcast.user.pojo.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+/**
+ * @author lichengming
+ * @date 2022/11/4 -0:06
+ */
+public interface UserService {
+    /**
+     * 根据id查询用户
+     * @param userId 用户id
+     * @return 用户信息
+     */
+    User queryById(Long userId);
 
-    @Autowired
-    private UserMapper userMapper;
+    /**
+     * 创建用户信息
+     * @param user 用户信息
+     * @return 状态
+     */
+    boolean createUser(User user);
 
-    public User queryById(Long id) {
-        return userMapper.findById(id);
-    }
+    /**
+     * 逻辑删除用户
+     * @param user 用户id
+     * @return 响应基类
+     */
+    BaseResponse deleteUser(User user);
 
-    public boolean createUser(User user) {
-        try {
-            userMapper.createUser(user);
-        } catch (Exception ex) {
-            return false;
-        }
-        return true;
-    }
+    /**
+     * 更新用户用户
+     * @param user 用户
+     * @return 响应基类
+     */
+    BaseResponse updateUser(User user);
 }

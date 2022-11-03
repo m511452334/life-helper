@@ -27,34 +27,44 @@ public class UserController {
     private PatternProperties properties;
 
     @GetMapping("prop")
-    public PatternProperties properties(){
+    public PatternProperties properties() {
         return properties;
     }
 
     @GetMapping("now")
-    public String now(){
+    public String now() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(properties.getDateformat()));
     }
 
     /**
      * 路径： /user/110
      *
-     * @param id 用户id
+     * @param userId 用户id
      * @return 用户
      */
-    @GetMapping("/{id}")
-    public User queryById(@PathVariable("id") Long id,
+    @GetMapping("/{userId}")
+    public User queryById(@PathVariable("id") Long userId,
                           @RequestHeader(value = "Truth", required = false) String truth) {
         System.out.println("truth: " + truth);
-        return userService.queryById(id);
+        return userService.queryById(userId);
     }
 
     @PostMapping("/create")
     public BaseResponse createUser(@RequestBody User user) {
-         if(userService.createUser(user)){
-             return new BaseResponse();
-         }else{
-             return new BaseResponse("100000","新增失败");
-         }
+        if (userService.createUser(user)) {
+            return new BaseResponse();
+        } else {
+            return new BaseResponse("100000", "新增失败");
+        }
+    }
+
+    @PostMapping("/delete")
+    public BaseResponse deleteUser(@RequestBody User user) {
+        return userService.deleteUser(user);
+    }
+
+    @PostMapping("/update")
+    public BaseResponse updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 }

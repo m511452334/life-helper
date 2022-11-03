@@ -7,9 +7,10 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
-    
-   // @Select("select * from tb_user where id = #{id}")
+
     User findById(@Param("userId") Long userId);
 
     boolean createUser(User user);
+
+    boolean updateUser(User user);
 }
