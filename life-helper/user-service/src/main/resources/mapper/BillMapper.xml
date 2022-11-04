@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itcast.user.mapper.BillMapper">
+
+    <select id="queryBillByUserId" resultType="cn.itcast.user.pojo.BillItem">
+        select *
+        from t_bill_item
+        where `user_id` = #{userId}
+    </select>
+
+    <insert id="createBill">
+        insert into t_bill_item
+            (`bill_id`, `user_id`, `bill_name`, `bill_type`, `create_time`, `update_time`, `money`,  `unit`)
+            value (#{billId}, #{userId}, #{billName}, #{billType}, current_timestamp (), current_timestamp (), #{money}, #{unit})
+    </insert>
+
+</mapper>
