@@ -43,10 +43,11 @@ public class UserController {
      * @return 用户
      */
     @GetMapping("/{userId}")
-    public User queryById(@PathVariable("id") Long userId,
+    public User queryById(@PathVariable("userId") Long userId,
                           @RequestHeader(value = "Truth", required = false) String truth) {
         System.out.println("truth: " + truth);
-        return userService.queryById(userId);
+         User user = userService.queryById(userId);
+        return user;
     }
 
     @PostMapping("/create")
