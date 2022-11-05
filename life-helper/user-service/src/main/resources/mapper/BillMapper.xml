@@ -4,9 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.user.mapper.BillMapper">
 
-    <select id="queryBillByUserId" resultType="cn.itcast.user.pojo.BillItem" parameterType="cn.itcast.user.request.BillRequest">
-        select *
-        from t_bill_item
+    <select id="queryBillByUserId" resultType="cn.itcast.user.pojo.BillItem"
+            parameterType="cn.itcast.user.request.BillRequest">
+        select
+        bill_id, user_id, bill_name, bill_type, mode,
+        date_format(create_time,'%Y-%m-%d %H:%i:%s') as create_time, date_format(update_time,'%Y-%m-%d %H:%i:%s') as update_time, money, unit
+        from t_bill_item t
         <where>
             and `user_id` = #{userId}
             <if test="billName !=null and ''!=billName ">
@@ -18,7 +21,12 @@
             <if test="mode !=null and ''!= mode ">
                 and `mode` = #{mode}
             </if>
+            <if test="startTime !=null and ''!= startTime ">
+                and `create_time` >= #{startTime} and create_time <![CDATA[ <= ]]> #{endTime}
+            </if>
         </where>
+        order by t.create_time desc
+        limit #{start},#{limit}
     </select>
 
     <select id="queryBillCount" resultType="integer">
@@ -35,13 +43,16 @@
             <if test="mode !=null and ''!= mode ">
                 and `mode` = #{mode}
             </if>
+            <if test="startTime !=null and ''!= startTime ">
+                and `create_time` >= #{startTime} and create_time <![CDATA[ <= ]]> #{endTime}
+            </if>
         </where>
     </select>
 
     <insert id="createBill">
         insert into t_bill_item
-        (`bill_id`, `user_id`, `bill_name`, `bill_type`, `mode`,`create_time`, `update_time`, `money`, `unit`)
-            value (#{billId}, #{userId}, #{billName}, #{billType}, #{mode},current_timestamp (), current_timestamp (), #{money}, #{unit})
+        (`bill_id`, `user_id`, `bill_name`, `bill_type`, `mode`, `create_time`, `update_time`, `money`, `unit`)
+            value (#{billId}, #{userId}, #{billName}, #{billType}, #{mode}, current_timestamp (), current_timestamp (), #{money}, #{unit})
     </insert>
 
 </mapper>

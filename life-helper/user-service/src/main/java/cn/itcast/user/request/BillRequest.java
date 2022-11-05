@@ -11,7 +11,9 @@ public class BillRequest {
     private String userId;
     private String billName;
     private String billType;
-    private String createTime;
-    private String updateTime;
+    private String startTime;
+    private String endTime;
     private String mode;
+    private int start;
+    private int limit;
 }
