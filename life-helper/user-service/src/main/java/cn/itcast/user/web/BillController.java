@@ -2,6 +2,7 @@ package cn.itcast.user.web;
 
 import cn.itcast.user.pojo.BaseResponse;
 import cn.itcast.user.pojo.BillItem;
+import cn.itcast.user.request.BillRequest;
 import cn.itcast.user.response.BillResponse;
 import cn.itcast.user.service.BillService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +22,12 @@ public class BillController {
     /**
      * 路径： /queryBillList/1
      *
-     * @param userId 用户id
+     * @param billRequest 请求信息
      * @return 账单响应类
      */
-    @GetMapping("/queryBillList/{userId}")
-    public BillResponse queryBillByUserId(@PathVariable("userId") String userId) {
-        BillResponse billResponse = new BillResponse();
-        List<BillItem> billItems = billService.queryBillByUserId(userId);
-        billResponse.setBillItemList(billItems);
+    @PostMapping("/queryBillList")
+    public BillResponse queryBillByUserId(@RequestBody BillRequest billRequest) {
+        BillResponse billResponse  = billService.queryBillByUserId(billRequest);
         return billResponse;
     }
 

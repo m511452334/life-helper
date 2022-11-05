@@ -5,6 +5,8 @@ import cn.itcast.user.mapper.UserMapper;
 import cn.itcast.user.pojo.BaseResponse;
 import cn.itcast.user.pojo.BillItem;
 import cn.itcast.user.pojo.User;
+import cn.itcast.user.request.BillRequest;
+import cn.itcast.user.response.BillResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,12 @@ public class BillServiceImpl implements BillService {
 
 
     @Override
-    public List<BillItem> queryBillByUserId(String userId) {
-        return billMapper.queryBillByUserId(userId);
+    public BillResponse queryBillByUserId(BillRequest billRequest) {
+        BillResponse billResponse = new BillResponse();
+        List<BillItem> billItems = billMapper.queryBillByUserId(billRequest);
+        billResponse.setBillItemList(billItems);
+        billResponse.setTotal(billMapper.queryBillCount(billRequest));
+        return billResponse;
     }
 
     @Override

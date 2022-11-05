@@ -4,16 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.user.mapper.BillMapper">
 
-    <select id="queryBillByUserId" resultType="cn.itcast.user.pojo.BillItem">
+    <select id="queryBillByUserId" resultType="cn.itcast.user.pojo.BillItem" parameterType="cn.itcast.user.request.BillRequest">
         select *
         from t_bill_item
-        where `user_id` = #{userId}
+        <where>
+            and `user_id` = #{userId}
+            <if test="billName !=null and ''!=billName ">
+                and `bill_name` like CONCAT('%',#{billName},'%')
+            </if>
+            <if test="billType !=null and ''!= billType">
+                and `bill_type` = #{billType}
+            </if>
+            <if test="mode !=null and ''!= mode ">
+                and `mode` = #{mode}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryBillCount" resultType="integer">
+        select count(1)
+        from t_bill_item
+        <where>
+            and `user_id` = #{userId}
+            <if test="billName !=null and ''!=billName ">
+                and `bill_name` like CONCAT('%',#{billName},'%')
+            </if>
+            <if test="billType !=null and ''!= billType">
+                and `bill_type` = #{billType}
+            </if>
+            <if test="mode !=null and ''!= mode ">
+                and `mode` = #{mode}
+            </if>
+        </where>
     </select>
 
     <insert id="createBill">
         insert into t_bill_item
-            (`bill_id`, `user_id`, `bill_name`, `bill_type`, `create_time`, `update_time`, `money`,  `unit`)
-            value (#{billId}, #{userId}, #{billName}, #{billType}, current_timestamp (), current_timestamp (), #{money}, #{unit})
+        (`bill_id`, `user_id`, `bill_name`, `bill_type`, `mode`,`create_time`, `update_time`, `money`, `unit`)
+            value (#{billId}, #{userId}, #{billName}, #{billType}, #{mode},current_timestamp (), current_timestamp (), #{money}, #{unit})
     </insert>
 
 </mapper>

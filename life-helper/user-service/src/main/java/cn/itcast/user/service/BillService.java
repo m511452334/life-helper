@@ -1,6 +1,8 @@
 package cn.itcast.user.service;
 
 import cn.itcast.user.pojo.BillItem;
+import cn.itcast.user.request.BillRequest;
+import cn.itcast.user.response.BillResponse;
 
 import java.util.List;
 
@@ -11,10 +13,10 @@ import java.util.List;
 public interface BillService {
     /**
      * 根据id查询用户
-     * @param userId 用户id
+     * @param billRequest 用户id
      * @return 用户信息
      */
-    List<BillItem> queryBillByUserId(String userId);
+    BillResponse queryBillByUserId(BillRequest billRequest);
 
     int createBill(BillItem userId);
 }
