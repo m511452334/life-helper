@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
 
-    User findById(@Param("userId") Long userId);
+    User findById(@Param("userId") String userId);
 
     boolean createUser(User user);
 

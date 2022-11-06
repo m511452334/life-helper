@@ -39,14 +39,19 @@ public class UserController {
     /**
      * 路径： /user/110
      *
-     * @param userId 用户id
+     * @param user 用户id
      * @return 用户
      */
+    @PostMapping("/login")
+    public BaseResponse login(@RequestBody User user) {
+        return userService.login(user);
+    }
+
     @GetMapping("/{userId}")
-    public User queryById(@PathVariable("userId") Long userId,
+    public User queryById(@PathVariable("userId") String userId,
                           @RequestHeader(value = "Truth", required = false) String truth) {
         System.out.println("truth: " + truth);
-         User user = userService.queryById(userId);
+        User user = userService.queryById(userId);
         return user;
     }
 

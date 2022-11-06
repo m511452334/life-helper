@@ -7,12 +7,20 @@ public class User {
     /**
     用户id
      */
-    private Long userId;
-    private String nickName;
+    private String userId;
+    /**
+     用户名
+     */
     private String userName;
+    /**
+     密码
+     */
     private String password;
     private String createTime;
     private String updateTime;
+    /**
+     性别
+     */
     private String gender;
     private int age;
     private int status;

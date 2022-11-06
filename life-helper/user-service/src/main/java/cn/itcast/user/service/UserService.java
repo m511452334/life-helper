@@ -9,11 +9,17 @@ import cn.itcast.user.pojo.User;
  */
 public interface UserService {
     /**
+     * 用户登录
+     * @param user 用户id
+     * @return 用户信息
+     */
+    BaseResponse login(User user);
+    /**
      * 根据id查询用户
      * @param userId 用户id
      * @return 用户信息
      */
-    User queryById(Long userId);
+    User queryById(String userId);
 
     /**
      * 创建用户信息

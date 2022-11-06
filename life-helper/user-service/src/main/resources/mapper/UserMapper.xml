@@ -11,15 +11,14 @@
     </select>
 
     <insert id="createUser">
-        insert into t_user (`user_id`, `nick_name`, `user_name`, `password`, `create_time`, `update_time`, `age`,
+        insert into t_user (`user_id`,  `user_name`, `password`, `create_time`, `update_time`, `age`,
                             `gender`, `status`)
-            value (#{userId}, #{nickName}, #{userName}, #{password}, current_timestamp (), current_timestamp (), #{age}, #{gender}, 1)
+            value (#{userId}, #{userId}, #{password}, current_timestamp (), current_timestamp (), #{age}, #{gender}, 1)
     </insert>
 
     <update id="updateUser">
         update t_user
-        set `nick_name`= #{nickName},
-            `user_name` = #{userName},
+        set `user_name` = #{userName},
             `password`= #{password},
             `update_time` = current_timestamp(),
             `age`= #{age},
